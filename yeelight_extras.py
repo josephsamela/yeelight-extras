@@ -29,10 +29,25 @@ class Bulb(yeelight.Bulb):
             if address in self.known_bulbs:
                 self.ip = self.known_bulbs[address]
             else:
-                self.ip = self.discover_bulb_by_name(address)['ip']
+                self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
 
-    def discover_bulb_by_name(self, name):
+    def power_on(self):
+        return self._setState('on')
+
+    def power_off(self):
+        return self._setState('off')
+
+    def _setState(self, requested_state):
+        current_state = self.get_properties()['power']
+        if current_state  == requested_state:
+            return 'ok'
+        elif current_state != requested_state:
+            return self.toggle()
+        else:
+            raise Exception('Could not communicate with light')
+
+    def _discover_bulb_by_name(self, name):
         for bulb in yeelight.discover_bulbs():
             if bulb['capabilities']['name'] == name:
                 return bulb
