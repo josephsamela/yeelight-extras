@@ -1,5 +1,6 @@
 import yeelight
 import socket
+from . import flows
 
 class Bulb(yeelight.Bulb):
     '''
@@ -23,7 +24,7 @@ class Bulb(yeelight.Bulb):
             'gameroom3': '192.168.1.42',
             'gameroom4': '192.168.1.43'
         }
-        if self.valid_ip(address):
+        if self._valid_ip(address):
             self.ip = address
         else:
             if address in self.known_bulbs:
@@ -37,6 +38,20 @@ class Bulb(yeelight.Bulb):
 
     def power_off(self):
         return self._setState('off')
+
+    def get_power(self):
+        return self.get_properties()['power']
+
+    def set_flow(self, flow_name):
+        return self.start_flow(flow=getattr(flows, flow_name)())
+
+    def set_color(self, r, g=0, b=0):
+        '''
+        Set bulb color with rgb or hexidecimal color code.
+        '''
+        if isinstance(r, str) and r[0] == '#':
+            r,g,b = tuple(int(r[1:][i:i+2], 16) for i in (0, 2, 4))
+        return self.set_rgb(r,g,b)
 
     def _setState(self, requested_state):
         current_state = self.get_properties()['power']
@@ -52,7 +67,7 @@ class Bulb(yeelight.Bulb):
             if bulb['capabilities']['name'] == name:
                 return bulb
 
-    def valid_ip(self, address):
+    def _valid_ip(self, address):
         try: 
             socket.inet_aton(address)
             return True
