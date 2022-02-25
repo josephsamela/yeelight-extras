@@ -32,15 +32,13 @@ class Bulb(yeelight.Bulb):
             else:
                 self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
-
-    def power_on(self):
-        return self._setState('on')
-
-    def power_off(self):
-        return self._setState('off')
-
-    def get_power(self):
-        return self.get_properties()['power']
+    
+    def get_property(self, property_name):
+        properties = self.get_properties()
+        if property_name in properties:
+            return properties[property_name]
+        else:
+            raise Exception(f'This bulb has no property called "{property_name}"')
 
     def set_flow(self, flow_name):
         return self.start_flow(flow=getattr(flows, flow_name)())
@@ -52,15 +50,6 @@ class Bulb(yeelight.Bulb):
         if isinstance(r, str) and r[0] == '#':
             r,g,b = tuple(int(r[1:][i:i+2], 16) for i in (0, 2, 4))
         return self.set_rgb(r,g,b)
-
-    def _setState(self, requested_state):
-        current_state = self.get_properties()['power']
-        if current_state  == requested_state:
-            return 'ok'
-        elif current_state != requested_state:
-            return self.toggle()
-        else:
-            raise Exception('Could not communicate with light')
 
     def _discover_bulb_by_name(self, name):
         for bulb in yeelight.discover_bulbs():
@@ -76,14 +65,15 @@ class Bulb(yeelight.Bulb):
 
 class Group:
     '''
-    This class allows you to control groups of bulbs. Whatever command
-    you envoke for the groups applies to all bulbs in the group. For
-    example, `group.toggle()` will toggle all bulbs in the group.
+    This class allows you to control groups of bulbs. Whatever method
+    you envoke of the group applies to all bulbs in the group. For
+    example, `group.turn_on()` will turn on all bulbs in the group.
 
     Example Usage:
         kitchen = Group([bulb1, bulb2, bulb3])
-        kitchen.toggle()
-        kitvhen.set_brightness(50)
+        kitchen.turn_on()
+        kitchen.set_brightness(50)
+        kitchen.turn_off()
 
     Parameters:
         bulbs (list): A list of Bulb() objects. ie. [b1, b2, b3]
