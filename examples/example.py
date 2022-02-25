@@ -1,9 +1,9 @@
 from yeelight_extras import Bulb, Group
 
-g1 = Bulb('gameroom1')          # Connect to bulb by name
-g2 = Bulb('192.168.1.54')       # Connect to bulb by ip address
+b1 = Bulb('bulb1')              # Connect to bulb by name
+b2 = Bulb('192.168.1.54')       # Connect to bulb by ip address
 
-g = Group([g1,g2])              # Create a group
+g = Group([b1,b2])              # Create a group
 
 g.turn_on()                     # Turn ON all bulbs in group
 
