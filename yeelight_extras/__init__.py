@@ -1,5 +1,6 @@
 import yeelight
 import socket
+import time
 from . import flows
 
 class Bulb(yeelight.Bulb):
@@ -42,6 +43,11 @@ class Bulb(yeelight.Bulb):
 
     def set_flow(self, flow_name):
         return self.start_flow(flow=getattr(flows, flow_name)())
+
+    def set_timed_flow(self, flow_name, duration):
+        self.set_flow(flow_name)
+        time.sleep(duration)
+        return
 
     def set_color(self, r, g=0, b=0):
         '''
