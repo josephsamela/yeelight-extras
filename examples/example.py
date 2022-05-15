@@ -15,3 +15,4 @@ g.set_color(255, 0, 0)          # Set group to RGB color
 g.set_flow('candle_flicker')    # Set group to display flow by name
 
 g.turn_off()                    # Turn OFF all bulbs in group
+
