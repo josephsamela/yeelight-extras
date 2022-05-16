@@ -142,3 +142,15 @@ def color_burst():
         RGBTransition(0, 0, 0, brightness=1, duration=duration),
     ]
     return Flow(count=0, action=Action.stay, transitions=transitions)
+
+def daylight():
+    '''
+    Show regular 5000k daylight
+
+    :returns: An infinite Flow consisting of 1 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=5000, duration=1000, brightness=100),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
