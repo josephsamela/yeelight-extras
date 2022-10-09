@@ -1,5 +1,5 @@
 from sys import argv
-from yeelight_extras import Bulb, Group
+from yeelight_extras import Bulb, Group, flows, scenes
 
 def main():
     # CHECK 1: Is argument passed correctly?
@@ -18,10 +18,14 @@ def main():
     except:
         raise Exception('Bulb connection failed. Likely Bulb or Group is offline.')
 
-    # SCRIPT: If both checks passed, command group to run flow.
-    flow = argv[1]
-    print(f'Running flow: {flow}')
-    g.set_flow(flow)
+    # SCRIPT: If both checks passed, command group to run flow or scene.
+    floworscene = argv[1]
+    if floworscene in dir(scenes):
+        g.set_scene(floworscene)
+    elif floworscene in dir(flows):
+        g.set_flow(floworscene)
+    else:
+        raise Exception('There is no Flow or Scene named {floworscene}.')
 
 if __name__ == '__main__':
     main()
