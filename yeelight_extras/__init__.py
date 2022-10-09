@@ -1,7 +1,8 @@
 import yeelight
 import socket
 import time
-from . import flows
+import threading
+from . import flows, scenes
 
 class Bulb(yeelight.Bulb):
     '''
@@ -33,6 +34,7 @@ class Bulb(yeelight.Bulb):
             else:
                 self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
+        self.start_music()
     
     def get_property(self, property_name):
         properties = self.get_properties()
@@ -86,6 +88,7 @@ class Group:
     '''
     def __init__(self, bulbs):
         self.bulbs = bulbs
+        self.active_scene = None
     def __getattr__(self, method):
         def impl(*args, **kwargs):
             responses = []
@@ -94,3 +97,32 @@ class Group:
                 responses.append(rsp)
             return responses
         return impl
+
+    def set_scene(self, scene_name):
+        if self.active_scene:
+            self.stop_scene()
+        self.active_scene = Scene(scene_name, self.bulbs, self)
+        self.active_scene.start()
+        return
+
+    def stop_scene(self):
+        self.active_scene.stop()
+        self.active_scene = None
+        return
+
+class Scene:
+    def __init__(self, name, bulbs, group):
+        self.name = name
+        self.bulbs = bulbs
+        self.group = group
+        self.thread = None
+        self.complete = threading.Event()
+        self.start()
+    def start(self):
+        self.thread = threading.Thread(
+            target=getattr(scenes, self.name),
+            args=(self.bulbs, self.group, self.complete)
+        )
+        self.thread.start()
+    def stop(self):
+        self.complete.set()
