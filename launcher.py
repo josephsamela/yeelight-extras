@@ -25,7 +25,7 @@ def main():
     elif floworscene in dir(flows):
         g.set_flow(floworscene)
     else:
-        raise Exception('There is no Flow or Scene named {floworscene}.')
+        raise Exception(f'There is no Flow or Scene named {floworscene}.')
 
 if __name__ == '__main__':
     main()
