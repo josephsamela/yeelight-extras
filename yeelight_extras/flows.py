@@ -184,16 +184,20 @@ def infernal():
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 
-def ghostencounter():
+def ghost_encounter_flow(speed):
     '''
     Luminescent ethereal energy spins around you.
 
     :returns: An infinite Flow consisting of 9 transitions.
     :rtype: Flow
     '''
+    
+    duration_light = speed*1000
+    duration_dark = duration_light*4
+
     transitions = [
-        TemperatureTransition(degrees=8000, duration=10, brightness=50),
-        TemperatureTransition(degrees=8000, duration=2000, brightness=10),
+        TemperatureTransition(degrees=8000, duration=duration_dark, brightness=0),
+        TemperatureTransition(degrees=8000, duration=duration_light, brightness=50),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 

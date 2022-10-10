@@ -3,6 +3,17 @@ import time
 def ghost_encounter(bulbs, group, complete):
     group.turn_on()
     group.set_color_temp(8000)
+    speed = 0.2
+    for b in bulbs:
+        b.set_flow('ghost_encounter_flow', speed)
+        time.sleep(speed)
+    return
+
+def ghost_encounter_sw(bulbs, group, complete):
+    group.turn_on()
+    group.set_color_temp(8000)
+    # group.stop_music()
+    # group.start_music()
     speed = 0.25
     bl = 50
     bd = 0

@@ -34,7 +34,7 @@ class Bulb(yeelight.Bulb):
             else:
                 self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
-        self.start_music()
+        # self.start_music()
     
     def get_property(self, property_name):
         properties = self.get_properties()
@@ -43,8 +43,8 @@ class Bulb(yeelight.Bulb):
         else:
             raise Exception(f'This bulb has no property called "{property_name}"')
 
-    def set_flow(self, flow_name):
-        return self.start_flow(flow=getattr(flows, flow_name)())
+    def set_flow(self, flow_name, *args, **kwargs):
+        return self.start_flow(flow=getattr(flows, flow_name)(*args, **kwargs))
 
     def set_timed_flow(self, flow_name, duration):
         self.set_flow(flow_name)
