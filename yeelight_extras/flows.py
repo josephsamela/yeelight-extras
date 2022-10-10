@@ -48,7 +48,7 @@ def torch_flicker():
     '''
     transitions = [
         TemperatureTransition(degrees=2700, duration=800, brightness=80),
-        TemperatureTransition(degrees=2700, duration=800, brightness=60),
+        TemperatureTransition(degrees=2700, duration=800, brightness=70),
         TemperatureTransition(degrees=2700, duration=1200, brightness=100),
         TemperatureTransition(degrees=2700, duration=800, brightness=90),
         TemperatureTransition(degrees=2700, duration=1200, brightness=100),
@@ -154,3 +154,46 @@ def daylight():
         TemperatureTransition(degrees=5000, duration=1000, brightness=100),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def swealtering_daylight():
+    '''
+    Simulate a bright swealtering sun
+
+    :returns: An infinite Flow consisting of 9 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=5000, duration=5000, brightness=70),
+        TemperatureTransition(degrees=4500, duration=5000, brightness=50),
+        TemperatureTransition(degrees=5000, duration=5000, brightness=75),
+        TemperatureTransition(degrees=5200, duration=5000, brightness=60),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def infernal():
+    '''
+    As you enter the mouth of hell the red sky churns above you.
+
+    :returns: An infinite Flow consisting of 3 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        RGBTransition(255, 0, 0, brightness=100, duration=1000),
+        RGBTransition(223, 49, 2, brightness=90, duration=1000),
+        RGBTransition(255, 0, 0, brightness=80, duration=1000),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def ghostencounter():
+    '''
+    Luminescent ethereal energy spins around you.
+
+    :returns: An infinite Flow consisting of 9 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=8000, duration=10, brightness=50),
+        TemperatureTransition(degrees=8000, duration=2000, brightness=10),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+

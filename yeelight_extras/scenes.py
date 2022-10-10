@@ -1,12 +1,12 @@
 import time
 
-def ghostencounter(bulbs, group):
+def ghost_encounter(bulbs, group, complete):
     group.turn_on()
     group.set_color_temp(8000)
     speed = 0.25
-    bl = 100
+    bl = 50
     bd = 0
-    while True:
+    while not complete.is_set():
         bulbs[0].set_brightness(bl)
         bulbs[1].set_brightness(bd)
         bulbs[2].set_brightness(bd)
