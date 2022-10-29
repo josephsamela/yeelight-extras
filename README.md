@@ -6,8 +6,9 @@ I have a set of yeelight Smart LED light bulbs. Yeelight is a great brand becaus
 * Connecting to bulbs by name instead of ip address.
 * Setting colors using RGB *and* hexidecimal interchangably.
 * Start flows by name (instead of passing flow object). 
+* The ability to create a "Scene" where each bulb runs a unique flow.
 
-I wrote this package `yeelight-extras` that extends the official library and adds in these extra features. Here's an example of how easy it is to control lights with my library.
+I wrote this package `yeelight-extras` that extends the official library adding in these extra features. Here's an example of how easy it is to control lights with my library.
 
 ```python
 from yeelight_extras import Bulb, Group
@@ -25,6 +26,7 @@ g.get_property('power')      # Get bulb property by name
 g.set_color('#88a7ff')       # Set group to hex color
 g.set_color(255, 0, 0)       # Set group to RGB color
 g.set_flow('candle_flicker') # Set group to display flow by name
+g.set_scene('ghost_event')   # Set group to display scene by name
 
 g.turn_off()                 # Turn OFF all bulbs in group
 ```
