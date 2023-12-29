@@ -17,6 +17,21 @@ def forest_canopy():
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 
+def candy_cane_forest():
+    '''
+    Simulate dappeling sunlight through forest canopy.
+
+    :returns: An infinite Flow consisting of white, green and yello
+    :rtype: Flow
+    '''
+    transitions = [
+        RGBTransition(237, 100, 136, duration=5000, brightness=100),
+        RGBTransition(251, 255, 222, duration=5000, brightness=100), # Sunlight yellow
+        RGBTransition(201, 50, 53, duration=5000, brightness=100) 
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+
 def fireworks():
     '''
     Simulate beautiful firework bursts of color!
@@ -230,9 +245,9 @@ def tundra():
     :rtype: Flow
     '''
     transitions = [
-        TemperatureTransition(degrees=6500, duration=1000, brightness=80),
-        TemperatureTransition(degrees=8000, duration=1000, brightness=65),
-        TemperatureTransition(degrees=7500, duration=1000, brightness=80),
+        RGBTransition(176, 210, 255, brightness=80, duration=1000),
+        RGBTransition(255, 255, 255, brightness=100, duration=2500),
+        RGBTransition(105, 170, 255, brightness=100, duration=3000),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 

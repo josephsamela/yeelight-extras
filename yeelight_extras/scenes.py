@@ -5,6 +5,18 @@ def night(bulbs, group, complete):
         b.turn_off()
     return
 
+def moonlit(bulbs, group, complete):
+
+    moon = bulbs[3]
+
+    for b in bulbs:
+        b.turn_off()
+
+    moon.set_color_temp(8000)
+    moon.turn_on()
+    moon.set_brightness(25)
+    return
+
 def ghost_encounter_1(bulbs, group, complete):
     group.turn_on()
     group.set_color_temp(8000)
@@ -56,3 +68,11 @@ def ghost_encounter_sw(bulbs, group, complete):
         bulbs[2].set_brightness(bd)
         bulbs[3].set_brightness(bl)
         time.sleep(speed)
+
+def campfire(bulbs, group, complete):
+    group.turn_on()
+    bulbs[0].set_flow('candle_flicker')
+    bulbs[2].turn_off()
+    bulbs[3].turn_off()
+    bulbs[1].set_flow('candle_flicker')
+    return
