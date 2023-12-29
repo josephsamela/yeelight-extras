@@ -145,13 +145,37 @@ def color_burst():
 
 def daylight():
     '''
-    Show regular 5000k daylight
+    Show regular daylight
 
     :returns: An infinite Flow consisting of 1 transitions.
     :rtype: Flow
     '''
     transitions = [
-        TemperatureTransition(degrees=5000, duration=1000, brightness=100),
+        TemperatureTransition(degrees=4500, duration=1000, brightness=100),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def overcast():
+    '''
+    Overcast daytime
+
+    :returns: An infinite Flow consisting of 1 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=6500, duration=1000, brightness=80),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def cozyroom():
+    '''
+    Light in color of a cozy room
+
+    :returns: An infinite Flow consisting of 1 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=4000, duration=1000, brightness=75),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 
@@ -181,6 +205,34 @@ def infernal():
         RGBTransition(255, 0, 0, brightness=100, duration=1000),
         RGBTransition(223, 49, 2, brightness=90, duration=1000),
         RGBTransition(255, 0, 0, brightness=80, duration=1000),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def crevasse():
+    '''
+    Trapped beneath the ice weak sunlight illuminates your path.
+
+    :returns: An infinite Flow consisting of 3 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        RGBTransition(14, 179, 230, brightness=100, duration=1000),
+        RGBTransition(0, 238, 255, brightness=90, duration=1000),
+        RGBTransition(0, 164, 176, brightness=80, duration=1000),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def tundra():
+    '''
+    Hiking across the endless expanse of the icy tundra.
+
+    :returns: An infinite Flow consisting of 3 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=6500, duration=1000, brightness=80),
+        TemperatureTransition(degrees=8000, duration=1000, brightness=65),
+        TemperatureTransition(degrees=7500, duration=1000, brightness=80),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 

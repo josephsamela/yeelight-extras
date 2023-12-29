@@ -11,6 +11,7 @@ def main():
     g3 = Bulb('gameroom3')
     g4 = Bulb('gameroom4')
     g = Group([g1, g2, g3, g4])
+    g.turn_on()
 
     # CHECK 2: Are all bulbs in group online?
     try:

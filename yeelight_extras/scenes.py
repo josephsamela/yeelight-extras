@@ -1,5 +1,10 @@
 import time
 
+def night(bulbs, group, complete):
+    for b in bulbs:
+        b.turn_off()
+    return
+
 def ghost_encounter_1(bulbs, group, complete):
     group.turn_on()
     group.set_color_temp(8000)
@@ -10,6 +15,7 @@ def ghost_encounter_1(bulbs, group, complete):
     return
 
 def ghost_encounter_2(bulbs, group, complete):
+    group.turn_on()
     group.set_color_temp(8000)
     speed = 1
     bulbs[0].set_flow('ghost_encounter_flow_2', speed)
