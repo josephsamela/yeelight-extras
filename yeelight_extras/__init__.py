@@ -21,10 +21,10 @@ class Bulb(yeelight.Bulb):
     '''
     def __init__(self, address, *args, **kwargs):
         self.known_bulbs = {
-            'gameroom1': '192.168.1.40',
-            'gameroom2': '192.168.1.41',
-            'gameroom3': '192.168.1.42',
-            'gameroom4': '192.168.1.43'
+            'gameroom-light-1': '192.168.1.21',
+            'gameroom-light-2': '192.168.1.22',
+            'gameroom-light-3': '192.168.1.23',
+            'gameroom-light-4': '192.168.1.24'
         }
         if self._valid_ip(address):
             self.ip = address
@@ -34,7 +34,6 @@ class Bulb(yeelight.Bulb):
             else:
                 self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
-        # self.start_music()
     
     def get_property(self, property_name):
         properties = self.get_properties()

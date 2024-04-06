@@ -6,10 +6,10 @@ def main():
     if len(argv) != 2:
         raise Exception('Arguments passed incorrectly. Please call in the form "python launcher.py <name_of_flow>".')
 
-    g1 = Bulb('gameroom1') 
-    g2 = Bulb('gameroom2')
-    g3 = Bulb('gameroom3')
-    g4 = Bulb('gameroom4')
+    g1 = Bulb('gameroom-light-1') 
+    g2 = Bulb('gameroom-light-2')
+    g3 = Bulb('gameroom-light-3')
+    g4 = Bulb('gameroom-light-4')
     g = Group([g1, g2, g3, g4])
     g.turn_on()
 
