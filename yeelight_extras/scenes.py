@@ -1,8 +1,17 @@
 import time
+import requests
+
+from .flows import streetlights
 
 def night(bulbs, group, complete):
     for b in bulbs:
         b.turn_off()
+    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20OFF')
+    return
+
+def halloween_festival(bulbs, group, complete):
+    group.set_flow('streetlights')
+    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20ON')
     return
 
 def moonlit(bulbs, group, complete):

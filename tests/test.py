@@ -1,4 +1,4 @@
-from .. import yeelight_extras import Bulb, Group
+from .yeelight_extras import Bulb, Group
 import time
 
 t0 = time.time()

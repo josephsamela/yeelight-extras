@@ -2,6 +2,7 @@ import yeelight
 import socket
 import time
 import threading
+import requests
 from . import flows, scenes
 
 class Bulb(yeelight.Bulb):

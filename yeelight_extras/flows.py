@@ -1,5 +1,6 @@
 from yeelight.flow import Action, Flow, RGBTransition, TemperatureTransition, SleepTransition, HSVTransition
 from yeelight.flows import *
+import requests
 
 import random
 
@@ -165,6 +166,7 @@ def daylight():
     :returns: An infinite Flow consisting of 1 transitions.
     :rtype: Flow
     '''
+    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20OFF')
     transitions = [
         TemperatureTransition(degrees=4500, duration=1000, brightness=100),
     ]
@@ -191,6 +193,18 @@ def cozyroom():
     '''
     transitions = [
         TemperatureTransition(degrees=4000, duration=1000, brightness=75),
+    ]
+    return Flow(count=0, action=Action.recover, transitions=transitions)
+
+def streetlights():
+    '''
+    Dim warm lights like streetlights at dusk
+
+    :returns: An infinite Flow consisting of 1 transitions.
+    :rtype: Flow
+    '''
+    transitions = [
+        TemperatureTransition(degrees=4000, duration=1000, brightness=10),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 
