@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yeelight-extras"
+version = "0.0.1"
+authors = [
+  { name="Joe Samela" },
+]
+description = "A python library to control Yeelight light bulbs."
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/josephsamela/yeelight-extras"
+Issues = "https://github.com/josephsamela/yeelight-extras/issues"

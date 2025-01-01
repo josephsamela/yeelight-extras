@@ -1,14 +1,16 @@
 # yeelight-extras
 
-I have a set of yeelight Smart LED light bulbs. Yeelight is a great brand because there's an [official Python Library from yeelight](https://yeelight.readthedocs.io/en/latest/) that allows you to control your bulbs and write custom flows in python! Unfortunately, it lacks basic features. For example:
+> A python library to control Yeelight light bulbs.
+
+I have a set of yeelight Smart LED light bulbs. Yeelight is a great brand because there's a [python library](https://yeelight.readthedocs.io/en/latest/) that allows you to control your bulbs and write custom flows in python! Unfortunately, it lacks some features I'm looking for. For example:
 
 * Creating and controlling a "Group" of bulbs.
 * Connecting to bulbs by name instead of ip address.
 * Setting colors using RGB *and* hexidecimal interchangably.
 * Start flows by name (instead of passing flow object). 
-* The ability to create a "Scene" where each bulb runs a unique flow.
+* The ability to create a "Scene" where each bulb in a group can run a different flow.
 
-I wrote this package `yeelight-extras` that extends the official library adding in these extra features. Here's an example of how easy it is to control lights with my library.
+I wrote this package `yeelight-extras` that extends the official library adding in these extra features. Here's an example of how easy it is to control lights with this library.
 
 ```python
 from yeelight_extras import Bulb, Group
