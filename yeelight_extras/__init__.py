@@ -27,6 +27,7 @@ class Bulb(yeelight.Bulb):
             'gameroom-light-3': '192.168.1.23',
             'gameroom-light-4': '192.168.1.24'
         }
+        self.address = address
         if self._valid_ip(address):
             self.ip = address
         else:
@@ -35,7 +36,8 @@ class Bulb(yeelight.Bulb):
             else:
                 self.ip = self._discover_bulb_by_name(address)['ip']
         super().__init__(self.ip, *args, **kwargs)
-    
+        self._self_check()
+
     def get_property(self, property_name):
         properties = self.get_properties()
         if property_name in properties:
@@ -63,6 +65,12 @@ class Bulb(yeelight.Bulb):
         for bulb in yeelight.discover_bulbs():
             if bulb['capabilities']['name'] == name:
                 return bulb
+
+    def _self_check(self):
+        try:
+            self.get_properties()
+        except Exception as e:
+            raise ConnectionError(f'Device {self.address} ({self.ip}) is offline. {e}')
 
     def _valid_ip(self, address):
         try: 
