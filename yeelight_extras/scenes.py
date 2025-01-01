@@ -1,20 +1,15 @@
 import time
-import requests
 
-from .flows import streetlights
-
-def night(bulbs, group, complete):
+def night(bulbs, group):
     for b in bulbs:
         b.turn_off()
-    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20OFF')
     return
 
-def halloween_festival(bulbs, group, complete):
+def halloween_festival(bulbs, group):
     group.set_flow('streetlights')
-    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20ON')
     return
 
-def moonlit(bulbs, group, complete):
+def moonlit(bulbs, group):
 
     moon = bulbs[3]
 
@@ -26,7 +21,7 @@ def moonlit(bulbs, group, complete):
     moon.set_brightness(25)
     return
 
-def ghost_encounter_1(bulbs, group, complete):
+def ghost_encounter_1(bulbs, group):
     group.turn_on()
     group.set_color_temp(8000)
     speed = 0.2
@@ -35,7 +30,7 @@ def ghost_encounter_1(bulbs, group, complete):
         time.sleep(speed)
     return
 
-def ghost_encounter_2(bulbs, group, complete):
+def ghost_encounter_2(bulbs, group):
     group.turn_on()
     group.set_color_temp(8000)
     speed = 1
@@ -48,40 +43,24 @@ def ghost_encounter_2(bulbs, group, complete):
     bulbs[3].set_flow('ghost_encounter_flow_2', speed)
     return
 
-def ghost_encounter_sw(bulbs, group, complete):
+def ghost_encounter_sw(bulbs, group):
     group.turn_on()
     group.set_color_temp(8000)
-    # group.stop_music()
-    # group.start_music()
     speed = 0.25
     bl = 50
     bd = 0
-    while not complete.is_set():
-        bulbs[0].set_brightness(bl)
-        bulbs[1].set_brightness(bd)
-        bulbs[2].set_brightness(bd)
-        bulbs[3].set_brightness(bd)       
-        time.sleep(speed)
-        bulbs[0].set_brightness(bd)
-        bulbs[1].set_brightness(bl)
-        bulbs[2].set_brightness(bd)
-        bulbs[3].set_brightness(bd)
-        time.sleep(speed)
-        bulbs[0].set_brightness(bd)
-        bulbs[1].set_brightness(bd)
-        bulbs[2].set_brightness(bl)
-        bulbs[3].set_brightness(bd)
-        time.sleep(speed)
-        bulbs[0].set_brightness(bd)
-        bulbs[1].set_brightness(bd)
-        bulbs[2].set_brightness(bd)
-        bulbs[3].set_brightness(bl)
-        time.sleep(speed)
 
-def campfire(bulbs, group, complete):
+    bulbs[0].set_brightness(bl)
+    time.sleep(speed)
+    bulbs[1].set_brightness(bd)
+    time.sleep(speed)
+    bulbs[2].set_brightness(bd)
+    time.sleep(speed)
+    bulbs[3].set_brightness(bd)       
+
+def campfire(bulbs, group):
     group.turn_on()
     bulbs[0].set_flow('candle_flicker')
     bulbs[2].turn_off()
     bulbs[3].turn_off()
     bulbs[1].set_flow('candle_flicker')
-    return

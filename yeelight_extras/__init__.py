@@ -46,12 +46,11 @@ class Bulb(yeelight.Bulb):
             raise Exception(f'This bulb has no property called "{property_name}"')
 
     def set_flow(self, flow_name, *args, **kwargs):
+        '''
+        Set bulb to run flow.
+        '''
+        self.turn_on()
         return self.start_flow(flow=getattr(flows, flow_name)(*args, **kwargs))
-
-    def set_timed_flow(self, flow_name, duration):
-        self.set_flow(flow_name)
-        time.sleep(duration)
-        return
 
     def set_color(self, r, g=0, b=0):
         '''
@@ -60,6 +59,16 @@ class Bulb(yeelight.Bulb):
         if isinstance(r, str) and r[0] == '#':
             r,g,b = tuple(int(r[1:][i:i+2], 16) for i in (0, 2, 4))
         return self.set_rgb(r,g,b)
+
+    def send_command(self, method, params=None, retries=10):
+        attempt = 0
+        while attempt < retries:
+            try:
+                time.sleep(attempt/4)
+                attempt+=1
+                return super().send_command(method, params)
+            except Exception as e:
+                print(f'Attempt {attempt}/{retries} failed: {e}')
 
     def _discover_bulb_by_name(self, name):
         for bulb in yeelight.discover_bulbs():
@@ -109,28 +118,9 @@ class Group:
     def set_scene(self, scene_name):
         if self.active_scene:
             self.stop_scene()
-        self.active_scene = Scene(scene_name, self.bulbs, self)
-        self.active_scene.start()
-        return
+        self.active_scene = scene_name
+        getattr(scenes, scene_name)(self.bulbs, self)
 
     def stop_scene(self):
-        self.active_scene.stop()
         self.active_scene = None
-        return
-
-class Scene:
-    def __init__(self, name, bulbs, group):
-        self.name = name
-        self.bulbs = bulbs
-        self.group = group
-        self.thread = None
-        self.complete = threading.Event()
-        self.start()
-    def start(self):
-        self.thread = threading.Thread(
-            target=getattr(scenes, self.name),
-            args=(self.bulbs, self.group, self.complete)
-        )
-        self.thread.start()
-    def stop(self):
-        self.complete.set()
+        self.turn_on()

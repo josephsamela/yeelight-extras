@@ -1,6 +1,5 @@
 from yeelight.flow import Action, Flow, RGBTransition, TemperatureTransition, SleepTransition, HSVTransition
 from yeelight.flows import *
-import requests
 
 import random
 
@@ -82,13 +81,7 @@ def lightning_storm():
     :returns: An infinite Flow of crackling lightning.
     :rtype: Flow
     '''
-    snooze = random.randint(1000, 15000)
     transitions = [
-        # RGBTransition(0, 0, 0, brightness=1, duration=1),
-        # RGBTransition(0, 0, 0, brightness=1, duration=1),
-        
-        # RGBTransition(20, 0, 74, brightness=25, duration=2500),
-
         RGBTransition(12, 13, 29, brightness=100, duration=1000),
         RGBTransition(121, 164, 255, brightness=100, duration=250),
         RGBTransition(87, 100, 177, brightness=100, duration=100),
@@ -96,26 +89,7 @@ def lightning_storm():
         RGBTransition(12, 13, 29, brightness=100, duration=250),
         RGBTransition(151, 253, 255, brightness=100, duration=50),
         RGBTransition(100, 127, 218, brightness=10, duration=1000),
-        RGBTransition(255, 255, 255, brightness=1, duration=5000),
-
-        # RGBTransition(104, 0, 120, brightness=25, duration=2500),
-        # SleepTransition(duration=5000),
-        # RGBTransition(87, 100, 177, brightness=100, duration=100),
-        # RGBTransition(151, 253, 255, brightness=100, duration=50),
-        # RGBTransition(255, 255, 255, brightness=1, duration=1),
-        # SleepTransition(duration=10000),
-        # RGBTransition(136, 141, 215, brightness=100, duration=50),
-        # RGBTransition(100, 127, 218, brightness=100, duration=50),
-        # SleepTransition(duration=duration),
-        # RGBTransition(121, 164, 255, brightness=100, duration=50),
-        # RGBTransition(12, 13, 29, brightness=100, duration=50),
-        # RGBTransition(121, 164, 255, brightness=100, duration=50),
-        # SleepTransition(duration=duration),
-        # RGBTransition(121, 164, 255, brightness=100, duration=50),
-        # RGBTransition(41, 73, 120, brightness=100, duration=50),
-        # RGBTransition(60, 72, 117, brightness=100, duration=50),
-        # RGBTransition(81, 92, 152, brightness=100, duration=50),
-        # RGBTransition(10, 9, 26, brightness=100, duration=50),
+        RGBTransition(255, 255, 255, brightness=1, duration=5000)
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
 
@@ -166,7 +140,6 @@ def daylight():
     :returns: An infinite Flow consisting of 1 transitions.
     :rtype: Flow
     '''
-    response = requests.request('get', 'http://192.168.1.35/cm?cmnd=Power%20OFF')
     transitions = [
         TemperatureTransition(degrees=4500, duration=1000, brightness=100),
     ]
@@ -300,4 +273,3 @@ def ghost_encounter_flow_2(speed):
         TemperatureTransition(degrees=8000, duration=duration_dark*4, brightness=0),
     ]
     return Flow(count=0, action=Action.recover, transitions=transitions)
-
